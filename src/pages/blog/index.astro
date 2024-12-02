@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Блог - Андрей Высоцкий">
+  <Sidebar />
+  
+  <main class="flex-1 ml-64">
+    <div class="max-w-6xl mx-auto px-8 py-12">
+      <h1 class="text-4xl font-bold mb-12">Блог</h1>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedPosts.map(post => (
+          <article class="group">
+            <a href={`/blog/${post.slug}`} class="block">
+              <div class="relative h-48 mb-4 overflow-hidden rounded-lg bg-[#1c1f26]">
+                <img 
+                  src={post.data.image} 
+                  alt={post.data.title}
+                  class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+                />
+              </div>
+              <time datetime={post.data.date.toISOString()} class="text-sm text-gray-400">
+                {post.data.date.toLocaleDateString('ru-RU', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </time>
+              <h2 class="text-xl font-semibold mt-2 group-hover:text-[#4def91] transition-colors">
+                {post.data.title}
+              </h2>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

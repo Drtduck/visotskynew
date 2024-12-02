@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+const lastUpdated = new Date().toLocaleDateString('ru-RU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<Layout title="Политика конфиденциальности">
+  <Sidebar />
+  
+  <main class="flex-1 ml-64">
+    <div class="max-w-4xl mx-auto px-8 py-12">
+      <article class="prose prose-invert max-w-none">
+        <h1 class="text-4xl font-bold mb-8">Политика конфиденциальности</h1>
+        <p class="text-gray-400 mb-8">Последнее обновление: {lastUpdated}</p>
+
+        <div class="space-y-6">
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">1. Общие положения</h2>
+            <p>Настоящая политика конфиденциальности описывает принципы обработки и защиты информации о пользователях сайта. Используя сайт, вы соглашаетесь с условиями данной политики.</p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">2. Собираемая информация</h2>
+            <p>При использовании сайта мы можем собирать следующую информацию:</p>
+            <ul class="list-disc pl-6 mt-2">
+              <li>Имя и контактные данные при записи на консультацию</li>
+              <li>Email при подписке на рассылку</li>
+              <li>Данные о посещениях сайта через системы аналитики</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">3. Использование информации</h2>
+            <p>Собранная информация используется для:</p>
+            <ul class="list-disc pl-6 mt-2">
+              <li>Организации консультаций</li>
+              <li>Отправки информационных материалов</li>
+              <li>Улучшения работы сайта</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">4. Защита информации</h2>
+            <p>Мы принимаем необходимые меры для защиты персональных данных пользователей от несанкционированного доступа.</p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">5. Контакты</h2>
+            <p>По вопросам, связанным с политикой конфиденциальности, вы можете связаться с нами через:</p>
+            <ul class="list-disc pl-6 mt-2">
+              <li>Telegram: <a href="https://t.me/asvpsy" class="text-[#4def91] hover:underline">@asvpsy</a></li>
+            </ul>
+          </section>
+        </div>
+      </article>
+    </div>
+  </main>
+</Layout>

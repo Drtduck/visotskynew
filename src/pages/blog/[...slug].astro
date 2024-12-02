@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const formattedDate = new Date(post.data.date).toLocaleDateString('ru-RU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<Layout title={post.data.title}>
+  <Sidebar />
+  
+  <main class="flex-1 ml-64">
+    <div class="max-w-4xl mx-auto px-8 py-12">
+      <article class="prose prose-invert max-w-none">
+        <div class="relative h-[400px] mb-8 rounded-xl overflow-hidden">
+          <img 
+            src={post.data.image} 
+            alt={post.data.title}
+            class="w-full h-full object-cover"
+          />
+        </div>
+        
+        <time datetime={post.data.date.toISOString()} class="text-sm text-gray-400">
+          {formattedDate}
+        </time>
+        
+        <h1 class="text-4xl font-bold mt-4 mb-8">{post.data.title}</h1>
+        
+        <Content />
+      </article>
+    </div>
+  </main>
+</Layout>

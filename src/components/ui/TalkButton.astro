@@ -1,0 +1,17 @@
+---
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a 
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="mt-auto px-6 py-3 border border-[#4def91] rounded-lg text-[#4def91] hover:bg-[#4def91]/10 transition-all duration-200 flex items-center justify-center gap-2 group"
+>
+  <span>Давай поговорим</span>
+  <i class="fab fa-telegram"></i>
+</a>

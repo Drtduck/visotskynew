@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import AboutHero from '../components/AboutHero.astro';
+import AboutInfo from '../components/AboutInfo.astro';
+import AboutContent from '../components/AboutContent.astro';
+
+const profile = {
+  name: "Андрей Высоцкий",
+  telegram: "https://t.me/asvpsy",
+  photo: "/images/profile-bw.jpg"
+};
+
+const content = `
+Я специализируюсь на работе с владельцами бизнеса и топ-менеджерами, помогая им преодолевать психологические барьеры и достигать новых высот в развитии бизнеса.
+
+Мой подход основан на глубоком понимании психологии лидерства и бизнес-процессов. Я помогаю клиентам:
+
+• Справляться со стрессом и эмоциональным выгоранием
+• Развивать лидерские качества
+• Улучшать коммуникацию в команде
+• Принимать сложные решения в условиях неопределенности
+• Находить баланс между работой и личной жизнью
+
+За 10+ лет практики я помог более 500 руководителям трансформировать их подход к управлению и достичь качественно новых результатов в бизнесе.`;
+---
+
+<Layout title="Обо мне - Андрей Высоцкий">
+  <Sidebar />
+  
+  <main class="flex-1 ml-64">
+    <div class="max-w-6xl mx-auto px-8 py-12">
+      <AboutHero 
+        title="Обо мне" 
+        image="/images/mountain-lake.jpg"
+      />
+      
+      <AboutInfo {...profile} />
+      
+      <AboutContent content={content} />
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,41 @@
+/* Base styles */
+:root {
+  --color-background: #000000;
+  --color-accent: #00FF00;
+  --color-text: #FFFFFF;
+  --color-card: #111111;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+p {
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Interactive elements */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-background);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}

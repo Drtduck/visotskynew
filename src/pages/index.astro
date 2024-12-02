@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import ProfileCard from '../components/ProfileCard.astro';
+import BlogGrid from '../components/BlogGrid.astro';
+import CreepingLine from '../components/CreepingLine.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts and sort by date
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const profile = {
+  name: "Андрей Высоцкий",
+  title: "Психолог, психотерапевт, супервизор",
+  description: "Помогаю руководителям и владельцам бизнеса преодолевать психологические барьеры и достигать новых высот в развитии.",
+  image: "/images/andrey.jpg"
+};
+---
+
+<Layout title="Андрей Высоцкий - Психолог, психотерапевт, супервизор">
+  <Sidebar />
+  
+  <main class="flex-1 ml-64">
+    <div class="max-w-6xl mx-auto px-8 py-12">
+      <ProfileCard {...profile} />
+      
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold mb-8">Блог</h2>
+        <BlogGrid posts={recentPosts.map(post => ({
+          title: post.data.title,
+          description: post.data.description,
+          date: post.data.date.toISOString(),
+          image: post.data.image,
+          slug: post.slug
+        }))} />
+        <CreepingLine text="Смотреть все записи" href="/blog" />
+      </section>
+    </div>
+  </main>
+</Layout>

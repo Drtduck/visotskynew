@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+const posts = [
+  {
+    title: "Как справиться со стрессом руководителя",
+    date: "2024-03-27",
+    image: "/images/blog/stress-management.jpg",
+    slug: "stress-management"
+  },
+  {
+    title: "Эмоциональный интеллект в бизнесе",
+    date: "2024-03-15",
+    image: "/images/blog/emotional-intelligence.jpg",
+    slug: "emotional-intelligence"
+  },
+  {
+    title: "Психология принятия решений",
+    date: "2024-03-04",
+    image: "/images/blog/decision-making.jpg",
+    slug: "decision-making"
+  },
+  {
+    title: "Выгорание у предпринимателей",
+    date: "2024-02-20",
+    image: "/images/blog/burnout.jpg",
+    slug: "burnout"
+  },
+  {
+    title: "Развитие лидерских качеств",
+    date: "2024-02-10",
+    image: "/images/blog/leadership.jpg",
+    slug: "leadership"
+  },
+  {
+    title: "Баланс работы и личной жизни",
+    date: "2024-02-01",
+    image: "/images/blog/work-life-balance.jpg",
+    slug: "work-life-balance"
+  }
+];
+---
+
+<Layout title="Блог - Андрей Высоцкий">
+  <Sidebar />
+  
+  <main class="flex-1 ml-64">
+    <div class="max-w-6xl mx-auto px-8 py-12">
+      <h1 class="text-4xl font-bold mb-12">Блог</h1>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map(post => (
+          <article class="group">
+            <a href={`/blog/${post.slug}`} class="block">
+              <div class="relative h-48 mb-4 overflow-hidden rounded-lg bg-[#1c1f26]">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+                />
+              </div>
+              <time datetime={post.date} class="text-sm text-gray-400">
+                {new Date(post.date).toLocaleDateString('ru-RU', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </time>
+              <h2 class="text-xl font-semibold mt-2 group-hover:text-[#4def91] transition-colors">
+                {post.title}
+              </h2>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .grid {
+    --min-column-width: 300px;
+  }
+</style>

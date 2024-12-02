@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+const post = {
+  title: "Как справиться со стрессом руководителя",
+  date: "2024-03-27",
+  image: "https://fal.media/files/kangaroo/pW1NE1kH7eBEg8TAWPUQh_f51de49e8faa4497858e4412fb58394f.jpg",
+  content: `
+В современном мире руководители бизнеса постоянно сталкиваются с высоким уровнем стресса. Давление ответственности, необходимость принимать сложные решения и управлять большими командами может серьезно влиять на психологическое состояние лидера.
+
+## Основные источники стресса
+
+1. Высокая ответственность за результаты компании
+2. Постоянное давление дедлайнов
+3. Управление конфликтными ситуациями
+4. Необходимость быстрой адаптации к изменениям
+
+## Практические методы управления стрессом
+
+### 1. Структурированное планирование
+
+Важно научиться правильно планировать свое время и расставлять приоритеты. Используйте методики тайм-менеджмента, которые помогут снизить уровень стресса от множества задач.
+
+### 2. Делегирование
+
+Многие руководители пытаются контролировать все процессы самостоятельно. Научитесь делегировать задачи и доверять своей команде.
+
+### 3. Регулярная физическая активность
+
+Спорт помогает снизить уровень стресса и поддерживать энергию в течение дня. Найдите активность, которая приносит удовольствие: бег, плавание, йога или силовые тренировки.
+
+### 4. Ментальные практики
+
+Медитация, дыхательные упражнения и майндфулнес помогают сохранять ясность мышления и эмоциональную стабильность.
+
+## Заключение
+
+Управление стрессом - это навык, который можно и нужно развивать. Регулярная практика предложенных методов поможет вам оставаться эффективным руководителем и поддерживать высокое качество жизни.`
+};
+
+const formattedDate = new Date(post.date).toLocaleDateString('ru-RU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<Layout title={post.title}>
+  <Sidebar />
+  
+  <main class="flex-1 ml-64">
+    <div class="max-w-4xl mx-auto px-8 py-12">
+      <article class="prose prose-invert max-w-none">
+        <div class="relative h-[400px] mb-8 rounded-xl overflow-hidden">
+          <img 
+            src={post.image} 
+            alt={post.title}
+            class="w-full h-full object-cover"
+          />
+        </div>
+        
+        <time datetime={post.date} class="text-sm text-gray-400">
+          {formattedDate}
+        </time>
+        
+        <h1 class="text-4xl font-bold mt-4 mb-8">{post.title}</h1>
+        
+        <div class="space-y-6">
+          {post.content.split('\n\n').map(paragraph => {
+            if (paragraph.startsWith('#')) {
+              const level = paragraph.match(/^#+/)[0].length;
+              const text = paragraph.replace(/^#+\s/, '');
+              const Tag = `h${level}`;
+              return <Tag class="font-bold text-2xl mt-8 mb-4">{text}</Tag>;
+            }
+            return <p class="text-gray-300 leading-relaxed">{paragraph}</p>;
+          })}
+        </div>
+      </article>
+    </div>
+  </main>
+</Layout>
