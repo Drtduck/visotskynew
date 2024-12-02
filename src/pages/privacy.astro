@@ -1,63 +1,71 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
+import AboutContent from '../components/AboutContent.astro';
 
-const lastUpdated = new Date().toLocaleDateString('ru-RU', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
+const content = `
+Я специализируюсь на работе с владельцами бизнеса и топ-менеджерами, помогая им преодолевать психологические барьеры и достигать новых высот в развитии бизнеса.
+
+Мой подход основан на глубоком понимании психологии лидерства и бизнес-процессов. Я помогаю клиентам:
+
+• Справляться со стрессом и эмоциональным выгоранием • Развивать лидерские качества • Улучшать коммуникацию в команде • Принимать сложные решения в условиях неопределенности • Находить баланс между работой и личной жизнью
+
+За 10+ лет практики я помог более 500 руководителям трансформировать их подход к управлению и достичь качественно новых результатов в бизнесе.`;
 ---
 
-<Layout title="Политика конфиденциальности">
-  <Sidebar />
+<Layout title="Обо мне - Андрей Высоцкий">
+  <div class="lg:hidden">
+    <button 
+      id="menu-toggle"
+      class="fixed top-4 right-4 z-50 p-2 bg-[#1c1f26] rounded-lg"
+      aria-label="Toggle menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="lg:block hidden">
+    <Sidebar />
+  </div>
   
-  <main class="flex-1 ml-64">
-    <div class="max-w-4xl mx-auto px-8 py-12">
-      <article class="prose prose-invert max-w-none">
-        <h1 class="text-4xl font-bold mb-8">Политика конфиденциальности</h1>
-        <p class="text-gray-400 mb-8">Последнее обновление: {lastUpdated}</p>
-
-        <div class="space-y-6">
-          <section>
-            <h2 class="text-2xl font-semibold mb-4">1. Общие положения</h2>
-            <p>Настоящая политика конфиденциальности описывает принципы обработки и защиты информации о пользователях сайта. Используя сайт, вы соглашаетесь с условиями данной политики.</p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-semibold mb-4">2. Собираемая информация</h2>
-            <p>При использовании сайта мы можем собирать следующую информацию:</p>
-            <ul class="list-disc pl-6 mt-2">
-              <li>Имя и контактные данные при записи на консультацию</li>
-              <li>Email при подписке на рассылку</li>
-              <li>Данные о посещениях сайта через системы аналитики</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-semibold mb-4">3. Использование информации</h2>
-            <p>Собранная информация используется для:</p>
-            <ul class="list-disc pl-6 mt-2">
-              <li>Организации консультаций</li>
-              <li>Отправки информационных материалов</li>
-              <li>Улучшения работы сайта</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-semibold mb-4">4. Защита информации</h2>
-            <p>Мы принимаем необходимые меры для защиты персональных данных пользователей от несанкционированного доступа.</p>
-          </section>
-
-          <section>
-            <h2 class="text-2xl font-semibold mb-4">5. Контакты</h2>
-            <p>По вопросам, связанным с политикой конфиденциальности, вы можете связаться с нами через:</p>
-            <ul class="list-disc pl-6 mt-2">
-              <li>Telegram: <a href="https://t.me/asvpsy" class="text-[#4def91] hover:underline">@asvpsy</a></li>
-            </ul>
-          </section>
-        </div>
-      </article>
+  <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 lg:hidden hidden">
+    <Sidebar />
+  </div>
+  
+  <main class="lg:ml-64">
+    <div class="max-w-6xl mx-auto px-4 lg:px-8 py-12">
+      <h1 class="text-3xl lg:text-4xl font-bold mb-12">Обо мне</h1>
+      
+      <div class="relative h-[300px] lg:h-[500px] mb-16 overflow-hidden rounded-2xl">
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/PHSE7aciUQM?controls=1"
+          title="Презентационное видео"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          class="w-full h-full object-cover"
+        ></iframe>
+      </div>
+      
+      <AboutContent content={content} />
     </div>
   </main>
 </Layout>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuToggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  mobileMenu?.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+</script>
