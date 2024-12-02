@@ -1,9 +1,16 @@
 ---
+interface Props {
+  name: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
 const { name, title, description, image } = Astro.props;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-  <div class="bg-[#1c1f26] rounded-lg p-8">
+  <div class="bg-[#1c1f26] rounded-lg p-8 flex flex-col justify-center">
     <h2 class="text-2xl font-bold mb-2">{name}</h2>
     <p class="text-xl text-gray-400">{title}</p>
   </div>
@@ -17,7 +24,7 @@ const { name, title, description, image } = Astro.props;
     />
   </div>
   
-  <div class="bg-[#1c1f26] rounded-lg p-8">
+  <div class="bg-[#1c1f26] rounded-lg p-8 flex items-center">
     <p class="text-gray-300">{description}</p>
   </div>
 </div>
