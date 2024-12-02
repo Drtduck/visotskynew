@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
-import AboutHero from '../components/AboutHero.astro';
 import AboutContent from '../components/AboutContent.astro';
 
 const content = `
@@ -9,11 +8,7 @@ const content = `
 
 Мой подход основан на глубоком понимании психологии лидерства и бизнес-процессов. Я помогаю клиентам:
 
-• Справляться со стрессом и эмоциональным выгоранием
-• Развивать лидерские качества
-• Улучшать коммуникацию в команде
-• Принимать сложные решения в условиях неопределенности
-• Находить баланс между работой и личной жизнью
+• Справляться со стрессом и эмоциональным выгоранием • Развивать лидерские качества • Улучшать коммуникацию в команде • Принимать сложные решения в условиях неопределенности • Находить баланс между работой и личной жизнью
 
 За 10+ лет практики я помог более 500 руководителям трансформировать их подход к управлению и достичь качественно новых результатов в бизнесе.`;
 ---
@@ -23,10 +18,19 @@ const content = `
   
   <main class="flex-1 ml-64">
     <div class="max-w-6xl mx-auto px-8 py-12">
-      <AboutHero 
-        title="Обо мне" 
-        image="/images/mountain-lake.jpg"
-      />
+      <h1 class="text-4xl font-bold mb-12">Обо мне</h1>
+      
+      <div class="relative h-[500px] mb-16 overflow-hidden rounded-2xl">
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/PHSE7aciUQM?mute=1&loop=1&playlist=PHSE7aciUQM&controls=1"
+          title="Презентационное видео"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          class="w-full h-full object-cover"
+        ></iframe>
+      </div>
       
       <AboutContent content={content} />
     </div>
