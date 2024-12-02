@@ -12,13 +12,31 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
 ---
 
 <Layout title="Блог - Андрей Высоцкий">
-  <Sidebar />
+  <div class="lg:hidden">
+    <button 
+      id="menu-toggle"
+      class="fixed top-4 right-4 z-50 p-2 bg-[#1c1f26] rounded-lg"
+      aria-label="Toggle menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="lg:block hidden">
+    <Sidebar />
+  </div>
   
-  <main class="flex-1 ml-64">
-    <div class="max-w-6xl mx-auto px-8 py-12">
-      <h1 class="text-4xl font-bold mb-12">Блог</h1>
+  <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 lg:hidden hidden">
+    <Sidebar />
+  </div>
+  
+  <main class="lg:ml-64">
+    <div class="max-w-6xl mx-auto px-4 lg:px-8 py-12">
+      <h1 class="text-3xl lg:text-4xl font-bold mb-8 lg:mb-12">Блог</h1>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {sortedPosts.map(post => (
           <article class="group">
             <a href={`/blog/${post.slug}`} class="block">
@@ -41,7 +59,7 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
               <h2 class="text-xl font-semibold mt-2 group-hover:text-[#4def91] transition-colors">
                 {post.data.title}
               </h2>
-              <p class="text-gray-300 mt-2">{post.data.description}</p>
+              <p class="text-gray-300 mt-2 text-sm lg:text-base">{post.data.description}</p>
             </a>
           </article>
         ))}
@@ -49,3 +67,19 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
     </div>
   </main>
 </Layout>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuToggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close menu when clicking outside
+  mobileMenu?.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+</script>
