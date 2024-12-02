@@ -7,9 +7,27 @@ const { content } = Astro.props;
 ---
 
 <div class="bg-[#1c1f26] rounded-2xl p-8 mb-16">
-  <div class="prose prose-invert max-w-none">
-    {content.split('\n\n').map(paragraph => (
-      <p class="mb-6 leading-relaxed text-gray-300 last:mb-0">{paragraph}</p>
-    ))}
+  <div class="prose prose-invert max-w-none space-y-6">
+    <p class="text-gray-300 leading-relaxed">
+      Я специализируюсь на работе с владельцами бизнеса и топ-менеджерами, помогая им преодолевать психологические барьеры и достигать новых высот в развитии бизнеса.
+    </p>
+
+    <div>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Мой подход основан на глубоком понимании психологии лидерства и бизнес-процессов. Я помогаю клиентам:
+      </p>
+      
+      <ul class="list-disc pl-6 space-y-2 text-gray-300">
+        <li>Справляться со стрессом и эмоциональным выгоранием</li>
+        <li>Развивать лидерские качества</li>
+        <li>Улучшать коммуникацию в команде</li>
+        <li>Принимать сложные решения в условиях неопределенности</li>
+        <li>Находить баланс между работой и личной жизнью</li>
+      </ul>
+    </div>
+
+    <p class="text-gray-300 leading-relaxed">
+      За 10+ лет практики я помог более 500 руководителям трансформировать их подход к управлению и достичь качественно новых результатов в бизнесе.
+    </p>
   </div>
 </div>
