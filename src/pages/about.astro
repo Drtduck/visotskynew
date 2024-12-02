@@ -2,14 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import AboutHero from '../components/AboutHero.astro';
-import AboutInfo from '../components/AboutInfo.astro';
 import AboutContent from '../components/AboutContent.astro';
-
-const profile = {
-  name: "Андрей Высоцкий",
-  telegram: "https://t.me/asvpsy",
-  photo: "/images/profile-bw.jpg"
-};
 
 const content = `
 Я специализируюсь на работе с владельцами бизнеса и топ-менеджерами, помогая им преодолевать психологические барьеры и достигать новых высот в развитии бизнеса.
@@ -34,8 +27,6 @@ const content = `
         title="Обо мне" 
         image="/images/mountain-lake.jpg"
       />
-      
-      <AboutInfo {...profile} />
       
       <AboutContent content={content} />
     </div>
