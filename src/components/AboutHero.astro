@@ -7,15 +7,15 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div class="relative h-[500px] mb-16 overflow-hidden rounded-2xl">
+<div class="relative h-[500px] mb-16 overflow-hidden rounded-2xl mt-8">
   <div class="absolute inset-0">
     <iframe
       width="100%"
       height="100%"
-      src="https://www.youtube.com/embed/PHSE7aciUQM?autoplay=1&mute=1&loop=1&playlist=PHSE7aciUQM&controls=0"
+      src="https://www.youtube.com/embed/PHSE7aciUQM?mute=1&loop=1&playlist=PHSE7aciUQM&controls=0"
       title="Background Video"
       frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       style="object-fit: cover;"
     ></iframe>
   </div>
