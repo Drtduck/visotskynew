@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import { getCollection } from 'astro:content';
 
+// Get all blog posts and sort by date
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
@@ -35,6 +36,7 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
               <h2 class="text-xl font-semibold mt-2 group-hover:text-[#4def91] transition-colors">
                 {post.data.title}
               </h2>
+              <p class="text-gray-300 mt-2">{post.data.description}</p>
             </a>
           </article>
         ))}
