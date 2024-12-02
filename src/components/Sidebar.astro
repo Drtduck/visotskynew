@@ -1,6 +1,4 @@
 ---
-import TalkButton from './ui/TalkButton.astro';
-
 const navigationLinks = [
   { href: "/", text: "Главная", icon: "house-user" },
   { href: "/about", text: "Обо мне", icon: "user" },
@@ -14,11 +12,6 @@ const socialLinks = [
 ---
 
 <aside class="w-64 h-screen bg-[#1c1f26] fixed left-0 top-0 flex flex-col p-6">
-  <div class="flex items-center gap-3 mb-8">
-    <img src="/images/profile.jpg" alt="Андрей Высоцкий" class="w-8 h-8 rounded-full object-cover">
-    <span class="font-normal tracking-wide">Андрей Высоцкий</span>
-  </div>
-
   <nav class="flex-1">
     <ul class="space-y-2">
       {navigationLinks.map(({ href, text, icon }) => (
@@ -54,5 +47,13 @@ const socialLinks = [
     </div>
   </nav>
 
-  <TalkButton href="https://t.me/asvpsy" />
+  <a 
+    href="https://t.me/asvpsy"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mt-auto px-6 py-3 border border-[#4def91] rounded-lg text-[#4def91] hover:bg-[#4def91]/10 transition-all duration-200 flex items-center justify-center gap-2 group"
+  >
+    <span>Давай поговорим</span>
+    <i class="fab fa-telegram"></i>
+  </a>
 </aside>
