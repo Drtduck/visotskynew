@@ -1,59 +1,33 @@
 import type { APIRoute } from 'astro';
-import { writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
-
-const CONTENT_DIR = 'src/content/blog';
-const IMAGES_DIR = 'public/images/blog';
-
-interface BlogPost {
-  title: string;
-  description: string;
-  content: string;
-  image?: {
-    name: string;
-    base64: string;
-  };
-}
+import { blogPostSchema, validateApiKey } from '../../../utils/validation';
+import { saveImage, saveMarkdownFile } from '../../../utils/files';
+import { generateSlug } from '../../../utils/slugify';
+import { generateMarkdown } from '../../../utils/markdown';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const apiKey = request.headers.get('x-api-key');
     
-    if (!apiKey || apiKey !== import.meta.env.API_KEY) {
+    if (!validateApiKey(apiKey)) {
       return new Response('Unauthorized', { status: 401 });
     }
 
-    const data = await request.json() as BlogPost;
+    const data = blogPostSchema.parse(await request.json());
+    const slug = generateSlug(data.title);
     
-    // Generate slug from title
-    const slug = data.title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
-
-    // Save image if provided
     let imagePath = '';
     if (data.image) {
-      const buffer = Buffer.from(data.image.base64, 'base64');
-      imagePath = `/images/blog/${data.image.name}`;
-      await writeFile(join(process.cwd(), 'public', imagePath), buffer);
+      imagePath = await saveImage(data.image.base64, data.image.name);
     }
 
-    // Create markdown content
-    const markdown = `---
-title: "${data.title}"
-description: "${data.description}"
-date: ${new Date().toISOString()}
-image: "${imagePath}"
----
+    const markdown = generateMarkdown({
+      title: data.title,
+      description: data.description,
+      imagePath,
+      content: data.content
+    });
 
-${data.content}`;
-
-    // Save markdown file
-    await writeFile(
-      join(process.cwd(), CONTENT_DIR, `${slug}.md`),
-      markdown
-    );
+    await saveMarkdownFile(slug, markdown);
 
     return new Response(JSON.stringify({ success: true, slug }), {
       status: 200,
@@ -63,7 +37,9 @@ ${data.content}`;
     });
   } catch (error) {
     console.error('Error uploading content:', error);
-    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+    return new Response(JSON.stringify({ 
+      error: error instanceof Error ? error.message : 'Internal Server Error' 
+    }), {
       status: 500,
       headers: {
         'Content-Type': 'application/json'
