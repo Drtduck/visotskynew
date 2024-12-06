@@ -1,49 +1,48 @@
 import type { APIRoute } from 'astro';
-import { blogPostSchema, validateApiKey } from '../../../utils/validation';
-import { saveImage, saveMarkdownFile } from '../../../utils/files';
-import { generateSlug } from '../../../utils/slugify';
-import { generateMarkdown } from '../../../utils/markdown';
+import { blogPostSchema } from '../../../utils/content/validation';
+import { validateApiKey, validateContentType } from '../../../utils/api/validation';
+import { transformBlogPost } from '../../../utils/content/transform';
+import { generateMarkdown } from '../../../utils/content/markdown';
+import { saveMarkdownFile } from '../../../utils/storage/files';
+import { createSuccessResponse, createErrorResponse } from '../../../utils/api/response';
+import { ApiError } from '../../../utils/api/error';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const apiKey = request.headers.get('x-api-key');
-    
-    if (!validateApiKey(apiKey)) {
-      return new Response('Unauthorized', { status: 401 });
+    if (!validateApiKey(request)) {
+      throw new ApiError('Unauthorized', 401);
     }
 
-    const data = blogPostSchema.parse(await request.json());
-    const slug = generateSlug(data.title);
-    
-    let imagePath = '';
-    if (data.image) {
-      imagePath = await saveImage(data.image.base64, data.image.name);
+    if (!validateContentType(request)) {
+      throw new ApiError('Invalid content type', 415);
     }
 
-    const markdown = generateMarkdown({
-      title: data.title,
-      description: data.description,
-      imagePath,
-      content: data.content
-    });
+    const rawData = await request.json();
+    const data = blogPostSchema.parse(rawData);
+    const transformedData = await transformBlogPost(data);
+    
+    const markdown = generateMarkdown(transformedData);
+    await saveMarkdownFile(transformedData.slug, markdown);
 
-    await saveMarkdownFile(slug, markdown);
-
-    return new Response(JSON.stringify({ success: true, slug }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
+    return new Response(
+      JSON.stringify(createSuccessResponse({ slug: transformedData.slug })),
+      { 
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
       }
-    });
+    );
   } catch (error) {
-    console.error('Error uploading content:', error);
-    return new Response(JSON.stringify({ 
-      error: error instanceof Error ? error.message : 'Internal Server Error' 
-    }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json'
+    console.error('Error processing content upload:', error);
+    
+    const status = error instanceof ApiError ? error.status : 500;
+    const message = error instanceof Error ? error.message : 'Internal Server Error';
+    
+    return new Response(
+      JSON.stringify(createErrorResponse(message)),
+      {
+        status,
+        headers: { 'Content-Type': 'application/json' }
       }
-    });
+    );
   }
 }
