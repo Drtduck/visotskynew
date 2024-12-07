@@ -39,3 +39,12 @@ p {
 .btn-primary:hover {
   opacity: 0.9;
 }
+
+/* Remove underlines from links */
+.prose a {
+  text-decoration: none !important;
+}
+
+.prose a:hover {
+  text-decoration: none !important;
+}
