@@ -2,7 +2,7 @@
 title: "Почему предприниматели выбирают неизвестное, чтобы построить империю?"  
 description: "Узнай секрет их мотивации\!"  
 date: 2024-12-08  
-image: "https://fal.media/files/kangaroo/SkehZHcHRXaclQI1U1\_ce\_d7c58daf61e4465bb536761977b98c2c.jpg"  
+image: "/images/blog/motivation.jpg" 
 \---
 
 #  **Почему предприниматели выбирают неизвестное, чтобы построить империю?** 
