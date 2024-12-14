@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { ViewTransitions } from 'astro:transitions';
+import Analytics from '../components/analytics/index.astro';
 
 interface Props {
   title: string;
@@ -16,7 +17,6 @@ const {
 <!doctype html>
 <html lang="ru">
   <head>
-<meta name="zen-verification" content="bKJFrIxGVFu9vJ5kGa7bDD7WmBFdgiWkjqX6ZP2bk4Dk4zJljpsdWHmelcBRxKjp" />
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
@@ -27,6 +27,7 @@ const {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Андрей Высоцкий" href="/rss.xml" />
     <ViewTransitions />
+    <Analytics />
   </head>
   <body class="min-h-screen flex flex-col bg-black text-white font-light">
     <slot />
